@@ -1,0 +1,6 @@
+npm-debug.log*
+node_modules/
+coverage/
+docs/
+package-lock.json
+.nyc_output

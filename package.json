@@ -1,0 +1,76 @@
+{
+	"name": "not-notification",
+	"version": "0.0.1",
+	"description": "not-* family notification management mod",
+	"main": "index.js",
+	"scripts": {
+		"test": "./node_modules/.bin/mocha --reporter spec ./tests/**/**/**/**.js",
+		"lint": "./node_modules/.bin/eslint ./src/**/**/**/**.js --fix",
+		"pretest": "npm run lint",
+		"docs": "./node_modules/.bin/jsdoc -c jsdoc.json",
+		"cover": "nyc npm test"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/interrupter/not-notification.git"
+	},
+	"keywords": [
+		"not-framework",
+		"not-node",
+		"notification"
+	],
+	"author": "interrupter <alex.repin@mail.ru> (http://github.com/interrupter)",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/interrupter/not-key/issues"
+	},
+	"homepage": "https://github.com/interrupter/not-key#readme",
+	"dependencies": {
+		"mongoose": "*",
+		"not-bulma": "*",
+		"not-meta": "*"
+	},
+	"devDependencies": {
+		"chai": "*",
+		"eslint": "*",
+		"ink-docstrap": "^1.3.2",
+		"jsdoc": "^3.6.6",
+		"mocha": "*",
+		"nyc": "*"
+	},
+	"nyc": {
+		"include": [
+			"src/**/**/**.js"
+		],
+		"exclude": [
+			"tests/**/**/**/**.js"
+		],
+		"reporter": [
+			"html"
+		],
+		"check-coverage": false,
+		"per-file": true,
+		"lines": 99,
+		"statements": 99,
+		"functions": 99,
+		"branches": 99,
+		"watermarks": {
+			"lines": [
+				80,
+				95
+			],
+			"functions": [
+				80,
+				95
+			],
+			"branches": [
+				80,
+				95
+			],
+			"statements": [
+				80,
+				95
+			]
+		}
+	}
+}
