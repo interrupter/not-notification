@@ -1,91 +1,82 @@
+const notNode = require('not-node');
+const log = require('not-log')(module, 'notification:model');
+const {notError} = require('not-error');
 const initFields = require('not-node').Fields.initFields;
 
-const MODEL_NAME = 'Key';
+const MODEL_NAME = 'Notification';
 const FIELDS = [
 	['title', { default: ''}, 'title'],
-	'key',
-	['origins', {}, 'listOfUrls'],
-	'owner',
-	'ownerModel',
-	['crate', {}, 'requiredObject'],
-	'createdAt',
-	'expiredAt',
-	'updatedAt'
+	[
+		'text',
+		{
+			default: '',
+			placeholder: 'Сообщение',
+			label: 'Сообщение'
+		},
+		'description'
+	],
+	['owner', { required: true } ],
+	['ownerModel', { required: true } ],
+	[
+		'new',
+		{
+			label: 'Новое',
+			default: true
+		},
+		'active'
+	],
+	['createdAt', { sortable: true } ],
 ];
 
 exports.enrich = {
-	versioning: false,
-	increment: true
+	versioning: true,
+	increment: false
 };
 
 exports.thisModelName = MODEL_NAME;
 exports.thisSchema = initFields(FIELDS, 'model');
 
 exports.thisStatics = {
-	async check(key){
-		return this.find({key}).exec()
-			.then((result)=>{
-				if(result && result.length > 0){
-					return true;
-				}else{
-					return false;
-				}
+	async notify(message, owner, ownerModel){
+		try{
+			return await this.add({
+				title: 		message.title,
+				text: 		message.text,
+				owner,
+				ownerModel,
+				createdAt: new Date()
 			});
-	},
-	async findActiveByKeyOrOrigin(key, origin){
-		const notExpired = [
-			{
-				'expiredAt':{
-					$exists: true,
-					$gt:	new Date()
-				}
-			},
-			{
-				'expiredAt':{
-					$exists:false
-				}
-			}
-		];
-		if(key || origin){
-			if(key){
-				return this.findOne({
-					//должен быть с ключом
-					key,
-					//и валидный or для соотвествия одному из двух правил
-					//либо без ограничения по времени, либо с еще не истекшим
-					$or: notExpired
-				}).exec();
-			}else if (origin && typeof origin === 'string'){
-				origin = origin.trim();
-				if (origin.length > 3){
-					return this.findOne({
-						//должен быть с сточником в списке разрешенных
-						origins: origin,
-						//и валидный or для соотвествия одному из двух правил
-						//либо без ограничения по времени, либо с еще не истекшим
-						$or: notExpired
-					}).exec();
-				}
-			}
+		}catch(e){
+			log.error(e);
+			notNode.Application.report(new notError('notification.notify', {owner, ownerModel}, e));
 		}
-		return false;
 	},
-
-	async getAllActive(){
-		return this.find({
-			$or: [
-				{
-					'expiredAt':{
-						$exists: true,
-						$gt:	new Date()
-					}
-				},
-				{
-					'expiredAt':{
-						$exists:false
-					}
-				}
-			]
-		}).exec();
+	async inbox(skip, size, owner, ownerModel){
+		try{
+			return await this.listAndCount(skip, size, {createdAt: -1 }, {owner, ownerModel}).exec();
+		}catch(e){
+			log.error(e);
+			notNode.Application.report(new notError('notification.inbox', {owner, ownerModel}, e));
+		}
+	},
+	async countNew(owner, ownerModel){
+		try{
+			return await this.countWithFilter({owner, ownerModel, new: true });
+		}catch(e){
+			log.error(e);
+			notNode.Application.report(new notError('notification.countNew', {owner, ownerModel}, e));
+		}
+	},
+	async markAsRead(_id, owner, ownerModel){
+		try{
+			let notify = await this.makeQuery('findOne', {_id, owner, ownerModel}).exec();
+			if(notify){
+				notify.new = false;
+				await notify.save();
+			}
+		}catch(e){
+			log.error(e);
+			notNode.Application.report(new notError('notification.markAsRead', {owner, ownerModel}, e));
+		}
 	}
 };

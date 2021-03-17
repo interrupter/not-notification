@@ -1,4 +1,4 @@
-import ncNotification from '../lib/ncNotificationRoot.js';
+import ncNotification from '../lib/ncNotificationUser.js';
 import nsNotification from '../lib/service.js';
 
 let services = {nsNotification};
