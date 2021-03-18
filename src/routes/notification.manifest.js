@@ -41,7 +41,7 @@ try {
 				method: 'GET',
 				isArray: false,
 				postFix: '/:actionName',
-				data: ['record', 'pager', 'return'],
+				data: ['record', 'pager', 'return', 'filter'],
 				fields: ['_id', 'title', 'text', 'createdAt', 'new'],
 				rules: [{
 					auth: true
@@ -52,6 +52,17 @@ try {
 				isArray: false,
 				postFix: '/:actionName',
 				rules: [{
+					auth: true
+				}]
+			},
+			get:{
+				method: 'GET',
+				isArray: false,
+				postFix: '/:record[_id]',
+				data: ['record'],
+				rules: [{
+					root: true
+				},{
 					auth: true
 				}]
 			},

@@ -21,14 +21,74 @@ try {
 		},
 		modMeta = require('not-meta');
 
+	async function get(req, res){
+		try {
+			let owner = req.user._id;
+			let _id = req.params._id;
+			const Notification = notNode.Application.getModel(MODEL_NAME);
+			let result = await Notification.ownNotification(_id, owner);
+			res.status(200).json({status: 'ok', result});
+		}catch(e){
+			Log.error(err);
+			notNode.Application.report(
+				new notError(
+					`notification:route.get`, {
+						_id: 					req.query._id,
+						owner:        req.user._id,
+						ownerModel:   'User'
+					},
+					err
+				)
+			);
+			res.status(500).json({
+				status: 'error'
+			});
+		}
+	}
+
+	async function _get(req, res){
+		try {
+			let _id = req.params._id;
+			const Notification = notNode.Application.getModel(MODEL_NAME);
+			let result = await Notification.getOne(_id);
+			if(result){
+				if(result.owner.toString() === req.user._id.toString()){
+					if (result.new){
+					 await Notification.markAsRead(req.params._id, result.owner, result.ownerModel);
+					}
+				}
+			}
+			res.status(200).json({status: 'ok', result});
+		}catch(e){
+			Log.error(err);
+			notNode.Application.report(
+				new notError(
+					`notification:route._get`, {
+						_id: 					req.query._id,
+						owner:        req.user._id,
+						ownerModel:   'User'
+					},
+					err
+				)
+			);
+			res.status(500).json({
+				status: 'error'
+			});
+		}
+	}
+
 	async function inbox(req, res) {
 		try {
+			const thisSchema = notNode.Application.getModelSchema(MODEL_NAME);
 			const {
 				size,
 				skip
 			} = query.pager.process(req);
+			const filter = query.filter.process(req, thisSchema);
 			const Notification = notNode.Application.getModel(MODEL_NAME);
-			let result = await Notification.inbox(skip, size, req.user._id, 'User');
+			let result = await Notification.inbox(skip, size, filter, req.user._id, 'User');
+			let freshCount = await Notification.countNew(req.user._id, 'User');
+			result.freshCount = freshCount;
 			res.status(200).json({
 				status: 'ok',
 				result
@@ -103,6 +163,8 @@ try {
 	}
 
 	module.exports = {
+		get,
+		_get,
 		inbox,
 		_inbox: inbox,
 		markAsRead,

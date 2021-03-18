@@ -21,6 +21,8 @@ const FIELDS = [
 		'new',
 		{
 			label: 'Новое',
+			searchable: true,
+			sortable: true,
 			default: true
 		},
 		'active'
@@ -36,7 +38,17 @@ exports.enrich = {
 exports.thisModelName = MODEL_NAME;
 exports.thisSchema = initFields(FIELDS, 'model');
 
+exports.thisMethods = {
+	async markAsRead(){
+		this.new = false;
+		return await this.save();
+	}
+};
+
 exports.thisStatics = {
+	async ownNotification(_id, owner, ownerModel = 'User'){
+		return this.makeQuery('findOne', { _id, owner, ownerModel }).exec();
+	},
 	async notify(message, owner, ownerModel){
 		try{
 			return await this.add({
@@ -51,12 +63,12 @@ exports.thisStatics = {
 			notNode.Application.report(new notError('notification.notify', {owner, ownerModel}, e));
 		}
 	},
-	async inbox(skip, size, owner, ownerModel){
+	async inbox(skip, size, filter, owner, ownerModel){
 		try{
-			return await this.listAndCount(skip, size, {createdAt: -1 }, {owner, ownerModel}).exec();
+			return await this.listAndCount(skip, size, {createdAt: -1 }, {...filter, owner, ownerModel});
 		}catch(e){
 			log.error(e);
-			notNode.Application.report(new notError('notification.inbox', {owner, ownerModel}, e));
+			notNode.Application.report(new notError('notification.inbox', {filter, owner, ownerModel}, e));
 		}
 	},
 	async countNew(owner, ownerModel){
@@ -69,11 +81,7 @@ exports.thisStatics = {
 	},
 	async markAsRead(_id, owner, ownerModel){
 		try{
-			let notify = await this.makeQuery('findOne', {_id, owner, ownerModel}).exec();
-			if(notify){
-				notify.new = false;
-				await notify.save();
-			}
+      await this.update({_id, owner, ownerModel}, {new: false});
 		}catch(e){
 			log.error(e);
 			notNode.Application.report(new notError('notification.markAsRead', {owner, ownerModel}, e));
