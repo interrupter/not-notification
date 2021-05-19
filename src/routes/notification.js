@@ -77,16 +77,18 @@ try {
 		}
 	}
 
-	function returnResult(params, result){
-		if(result.status === 'error'){
-			res.status(500).json({
-				status: 'error'
-			});
+	function returnResult(res, result){
+		if(result.status === 'ok'){
+			res.status(200).json(result);
 		}else{
-			res.status(200).json({
-				status: 'ok',
-				result
-			});
+			if(result.status === 'error'){
+				res.status(500).json(result);
+			}else{
+				res.status(500).json({
+					status: 'error',
+					error: 	result.message?result.message:result
+				});
+			}
 		}
 	}
 
@@ -106,10 +108,10 @@ try {
 				ownerId: req.user._id
 			};
 			let result = await Notification.inbox(params);
-			returnResult(params, result)
+			returnResult(res, result);
 		}catch(err){
 			Log.error(err);
-			returnResult({}, {status: 'error'});
+			returnResult(res, err);
 		}
 	}
 
