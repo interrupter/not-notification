@@ -1,6 +1,6 @@
 {
 	"name": "not-notification",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"description": "not-* family notification management mod",
 	"main": "index.js",
 	"scripts": {

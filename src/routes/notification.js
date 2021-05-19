@@ -105,7 +105,7 @@ try {
 				size,
 				skip,
 				filter,
-				ownerId: req.user._id
+				owner: req.user._id
 			};
 			let result = await Notification.inbox(params);
 			returnResult(res, result);

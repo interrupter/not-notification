@@ -8,7 +8,7 @@ exports.thisLogicName = MODEL_NAME;
 
 class NotificationLogic {
   static async notify({
-    ownerId,
+    owner,
     ownerModel = 'User',
     title,
     text
@@ -20,7 +20,7 @@ class NotificationLogic {
           title,
           text
         },
-        ownerId,
+        owner,
         ownerModel
       );
       return {
@@ -32,7 +32,7 @@ class NotificationLogic {
       notNode.Application.report(
         new notError(
           `notification:route.notify`, {
-            ownerId,
+            owner,
             ownerModel,
             title,
             text
@@ -51,13 +51,13 @@ class NotificationLogic {
     size,
     skip,
     filter,
-    ownerId,
+    owner,
     ownerModel = 'User'
   }) {
     try {
       const Notification = notNode.Application.getModel(MODEL_NAME);
-      let result = await Notification.inbox(skip, size, filter, ownerId, ownerModel);
-      let freshCount = await Notification.countNew(ownerId, ownerModel);
+      let result = await Notification.inbox(skip, size, filter, owner, ownerModel);
+      let freshCount = await Notification.countNew(owner, ownerModel);
       result.freshCount = freshCount;
       return {
         status: 'ok',
@@ -68,7 +68,7 @@ class NotificationLogic {
       notNode.Application.report(
         new notError(
           `notification:route.inbox`, {
-            ownerId,
+            owner,
             ownerModel,
             size,
             skip,
