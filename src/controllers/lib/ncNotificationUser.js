@@ -24,7 +24,7 @@ class ncNotification extends ncCRUD {
 			interface: {
 				combined: 			true,
 				combinedAction: 'inbox',
-				factory: 				this.getModel()
+				factory: 				this.getInterface(this.getModelName())
 			},
 			endless: false,
 			preload: {},

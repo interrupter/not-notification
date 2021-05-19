@@ -77,6 +77,19 @@ try {
 		}
 	}
 
+	function returnResult(params, result){
+		if(result.status === 'error'){
+			res.status(500).json({
+				status: 'error'
+			});
+		}else{
+			res.status(200).json({
+				status: 'ok',
+				result
+			});
+		}
+	}
+
 	async function inbox(req, res) {
 		try {
 			const thisSchema = notNode.Application.getModelSchema(MODEL_NAME);
@@ -85,28 +98,18 @@ try {
 				skip
 			} = query.pager.process(req);
 			const filter = query.filter.process(req, thisSchema);
-			const Notification = notNode.Application.getModel(MODEL_NAME);
-			let result = await Notification.inbox(skip, size, filter, req.user._id, 'User');
-			let freshCount = await Notification.countNew(req.user._id, 'User');
-			result.freshCount = freshCount;
-			res.status(200).json({
-				status: 'ok',
-				result
-			});
-		} catch (err) {
+			const Notification = notNode.Application.getLogic(MODEL_NAME);
+			const params = {
+				size,
+				skip,
+				filter,
+				ownerId: req.user._id
+			};
+			let result = await Notification.inbox(params);
+			returnResult(params, result)
+		}catch(err){
 			Log.error(err);
-			notNode.Application.report(
-				new notError(
-					`notification:route.inbox`, {
-						owner:        req.user._id,
-						ownerModel:   'User'
-					},
-					err
-				)
-			);
-			res.status(500).json({
-				status: 'error'
-			});
+			returnResult({}, {status: 'error'});
 		}
 	}
 

@@ -25,7 +25,7 @@ class ncNotification extends ncCRUD {
 		this.setOptions('list', {
 			interface: {
 				combined: 			true,
-				factory: 				this.getModel()
+				factory: 				this.getInterface(this.getModelName())
 			},
 			endless: false,
 			preload: {},

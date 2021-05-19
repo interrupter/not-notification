@@ -47,7 +47,6 @@ class nsNotification {
                 title: res.result.freshCount > 0 ? res.result.freshCount : false
               });
             }, 1000);
-
           }
         }
       })
