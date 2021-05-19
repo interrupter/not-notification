@@ -25,7 +25,7 @@ class ncNotification extends ncCRUD {
 		this.setOptions('list', {
 			interface: {
 				combined: 			true,
-				factory: 				this.getInterface(this.getModelName())
+				factory: 				this.getInterface()
 			},
 			endless: false,
 			preload: {},
@@ -219,10 +219,7 @@ class ncNotification extends ncCRUD {
 		} else {
 			this.$destroyUI();
 		}
-		let model = this.getModel();
-		let mod = model({_id: params[0]});
-		this.log(typeof mod.$get);
-		mod.$get()
+		this.getModel({_id: params[0]}).$get()
 			.then((res) => {
 				if (res.status === 'ok') {
 					let title = this.getItemTitle(res.result);
