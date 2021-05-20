@@ -2,7 +2,7 @@ import {
   TopMenu
 } from 'not-bulma';
 
-const INTERVAL = 60;
+const INTERVAL = 360;
 const SECTION_ID = 'notification';
 const SHORT_LIST_SIZE = 5;
 const INIT_UPDATE_DELAY = 5;

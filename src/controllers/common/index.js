@@ -1,7 +1,9 @@
 import ncNotification from '../lib/ncNotificationRoot.js';
 import nsNotification from '../lib/service.js';
-let services = {nsNotification};
 import main from './ws.client.main.js';
+
+
+const services = { nsNotification };
 
 const wsc = {
   main

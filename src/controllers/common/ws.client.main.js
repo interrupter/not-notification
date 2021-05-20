@@ -1,5 +1,11 @@
+import {notCommon} from 'not-bulma';
+
 async function onUpdate(){
-  console.log(...arguments);
+  try{
+    notCommon.getApp().getService('nsNotification').update();
+  }catch(e){
+    notCommon.error(e);
+  }
 }
 
 const main = {
