@@ -15,6 +15,7 @@ const FIELDS = [
 		},
 		'description'
 	],
+	['link', { required: false}, 'title'],
 	['owner', { required: true } ],
 	['ownerModel', { required: true } ],
 	[
@@ -51,13 +52,17 @@ exports.thisStatics = {
 	},
 	async notify(message, owner, ownerModel){
 		try{
-			return await this.add({
+			const data = {
 				title: 		message.title,
 				text: 		message.text,
 				owner,
 				ownerModel,
 				createdAt: new Date()
-			});
+			};
+			if(message.link && message.link.length){
+				data.link = message.link;
+			}
+			return await this.add(data);
 		}catch(e){
 			log.error(e);
 			notNode.Application.report(new notError('notification.notify', {owner, ownerModel}, e));

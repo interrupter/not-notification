@@ -11,14 +11,16 @@ class NotificationLogic {
     owner,
     ownerModel = 'User',
     title,
-    text
+    text,
+    link
   }){
     try{
       const Notification = notNode.Application.getModel(MODEL_NAME);
       let result = await Notification.notify(
         {
           title,
-          text
+          text,
+          link
         },
         owner,
         ownerModel
@@ -35,7 +37,8 @@ class NotificationLogic {
             owner,
             ownerModel,
             title,
-            text
+            text,
+            link
           },
           err
         )
