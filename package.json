@@ -1,6 +1,6 @@
 {
 	"name": "not-notification",
-	"version": "0.0.13",
+	"version": "0.0.14",
 	"description": "not-* family notification management mod",
 	"main": "index.js",
 	"scripts": {
@@ -26,6 +26,7 @@
 	},
 	"homepage": "https://github.com/interrupter/not-key#readme",
 	"dependencies": {
+		"bulma-toast": "^2.3.1",
 		"mongoose": "*",
 		"not-bulma": "*",
 		"not-meta": "*"

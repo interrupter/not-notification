@@ -14,7 +14,7 @@ class nsNotification {
 
   constructor(app) {
     this.app = app;
-    this.interface = this.app.getWorking('interfaces.notification');
+    this.interface = this.app.getInterface('notification');
     this.init();
   }
 

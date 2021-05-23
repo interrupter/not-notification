@@ -46,7 +46,10 @@ class ncNotification extends ncCRUD {
 				path: ':text',
 				title: 'Текст',
 				searchable: true,
-				sortable: true
+				sortable: true,
+				preprocessor:(val)=>{
+					return val.slice(0, 100);
+				}
 			}, {
 				path: ':owner',
 				title: 'Владелец',
@@ -153,7 +156,10 @@ class ncNotification extends ncCRUD {
 				path: ':text',
 				title: 'Текст',
 				searchable: true,
-				sortable: true
+				sortable: true,
+				preprocessor:(val)=>{
+					return val.slice(0, 100);
+				}
 			}, {
 				path: ':createdAt',
 				title: 'Создано',
@@ -244,7 +250,7 @@ class ncNotification extends ncCRUD {
 	}
 
 	updateNotifications(){
-		this.app.getWorking('services.nsNotification').update();
+		this.app.getService('nsNotification').update();
 	}
 
 }
