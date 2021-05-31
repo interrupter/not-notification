@@ -9,13 +9,13 @@ async function onUpdate(/*payload*/){
 }
 
 const main = {
-	routes:{
-		event: {
-			'notification//update': onUpdate
+	router:{
+		routes:{
+			event: {
+				'notification//update': onUpdate
+			}
 		}
-	},
-	validators:{},
-	messenger:{}
+	}
 };
 
 export default main;

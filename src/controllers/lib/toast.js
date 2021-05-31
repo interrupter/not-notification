@@ -1,4 +1,15 @@
-import * as bulmaToast from 'bulma-toast';
+import {toast} from 'bulma-toast/dist/bulma-toast.esm.js';
+
+function show(data){
+	toast({
+		...data,
+		dismissible: true,
+		animate: { in: "fadeIn",
+			out: "fadeOut"
+		},
+		closeOnClick: true
+	});
+}
 
 class nsToast {
 	constructor(app) {
@@ -19,16 +30,11 @@ class nsToast {
 		});
 	}
 
-	static custom(data){
-		bulmaToast.toast({
-			...data,
-			dismissible: true,
-			animate: { in: "fadeIn",
-				out: "fadeOut"
-			},
-			closeOnClick: true
-		});
+	custom(data){
+		show(data);
 	}
+
+	static show = show;
 }
 
 export default nsToast;
