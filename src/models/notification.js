@@ -91,5 +91,13 @@ exports.thisStatics = {
 			log.error(e);
 			notNode.Application.report(new notError('notification.markAsRead', {owner, ownerModel}, e));
 		}
+	},
+	async markAllAsRead(owner, ownerModel){
+		try{
+			await this.update({owner, ownerModel}, { new: false });
+		}catch(e){
+			log.error(e);
+			notNode.Application.report(new notError('notification.markAllAsRead', {owner, ownerModel}, e));
+		}
 	}
 };

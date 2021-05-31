@@ -33,7 +33,7 @@ async function get(req, res){
 		notNode.Application.report(
 			new notError(
 				`notification:route.get`, {
-					_id: 					req.query._id,
+					_id:           req.query._id,
 					owner:        req.user._id,
 					ownerModel:   'User'
 				},
@@ -54,7 +54,7 @@ async function _get(req, res){
 		if(result){
 			if(result.owner.toString() === req.user._id.toString()){
 				if (result.new){
-				 await Notification.markAsRead(req.params._id, result.owner, result.ownerModel);
+					await Notification.markAsRead(req.params._id, result.owner, result.ownerModel);
 				}
 			}
 		}
@@ -64,7 +64,7 @@ async function _get(req, res){
 		notNode.Application.report(
 			new notError(
 				`notification:route._get`, {
-					_id: 					req.query._id,
+					_id:           req.query._id,
 					owner:        req.user._id,
 					ownerModel:   'User'
 				},
@@ -86,7 +86,7 @@ function returnResult(res, result){
 		}else{
 			res.status(500).json({
 				status: 'error',
-				error: 	result.message?result.message:result
+				error:   result.message?result.message:result
 			});
 		}
 	}

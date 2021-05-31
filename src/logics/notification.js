@@ -1,4 +1,5 @@
 const notNode = require('not-node');
+const Log = require('not-log')(module, 'notification:logics');
 const {
 	notError
 } = require('not-error');
@@ -64,7 +65,9 @@ class NotificationLogic {
 			result.freshCount = freshCount;
 			return {
 				status: 'ok',
-				result
+				result:{
+					list: result
+				}
 			};
 		} catch (err) {
 			module.log.error(err);
@@ -76,6 +79,64 @@ class NotificationLogic {
 						size,
 						skip,
 						filter
+					},
+					err
+				)
+			);
+			return {
+				status: 'error'
+			};
+		}
+	}
+
+	static async markAsRead({
+		_id,
+		owner,
+		ownerModel = 'User'
+	}) {
+		try {
+			const Notification = notNode.Application.getModel(MODEL_NAME);
+			let result = await Notification.markAllAsRead(_id, owner, ownerModel);
+			return {
+				status: 'ok',
+				result
+			};
+		} catch (err) {
+			Log.error(err);
+			notNode.Application.report(
+				new notError(
+					`notification:route.markAllAsRead`, {
+						_id,
+						owner,
+						ownerModel
+					},
+					err
+				)
+			);
+			return {
+				status: 'error'
+			};
+		}
+	}
+
+	static async markAllAsRead({
+		owner,
+		ownerModel = 'User'
+	}) {
+		try {
+			const Notification = notNode.Application.getModel(MODEL_NAME);
+			let result = await Notification.markAllAsRead(owner, ownerModel);
+			return {
+				status: 'ok',
+				result
+			};
+		} catch (err) {
+			Log.error(err);
+			notNode.Application.report(
+				new notError(
+					`notification:route.markAllAsRead`, {
+						owner,
+						ownerModel
 					},
 					err
 				)

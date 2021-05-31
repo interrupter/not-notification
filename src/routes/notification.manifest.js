@@ -37,6 +37,14 @@ try {
 					auth: true
 				}]
 			},
+			markAllAsRead:{
+				ws: true,
+				postFix: ':actionName',
+				data: 		['record'],
+				rules: [{
+					auth: true
+				}]
+			},
 			inbox: {
 				method: 'GET',
 				isArray: false,

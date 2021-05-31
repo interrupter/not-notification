@@ -16,7 +16,7 @@ class nsNotification {
     this.app = app;
     this.interface = this.app.getInterface('notification');
     this.init();
-  }
+  };
 
   init() {
     setTimeout(this.update.bind(this), INIT_UPDATE_DELAY * 100);
@@ -58,6 +58,7 @@ class nsNotification {
   createMenuItems({list, count}) {
     let items = list.map(this.createMenuItem.bind(this));
     items.push(this.createShowAllMenuItem(count));
+    items.push(this.createMarkAllAsReadMenuItem());
     return items;
   }
 
@@ -79,6 +80,20 @@ class nsNotification {
       title: `Показать все (${count})`,
       url: '/notification/inbox'
     };
+  }
+
+  createMarkAllAsReadMenuItem() {
+    return {
+      break: true,
+      id: `${SECTION_ID}.markAllAsRead`,
+      section: SECTION_ID,
+      title: `Отметить все как прочитанные`,
+      action:  this.markAllAsRead.bind(this)
+    };
+  }
+
+  markAllAsRead(){
+    this.app.getWSClient();
   }
 
   declOfNum(n, text_forms) {
