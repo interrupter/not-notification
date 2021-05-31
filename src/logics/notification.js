@@ -65,9 +65,7 @@ class NotificationLogic {
 			result.freshCount = freshCount;
 			return {
 				status: 'ok',
-				result:{
-					list: result
-				}
+				result: result
 			};
 		} catch (err) {
 			module.log.error(err);
