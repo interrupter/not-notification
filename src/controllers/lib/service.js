@@ -87,13 +87,20 @@ class nsNotification {
       break: true,
       id: `${SECTION_ID}.markAllAsRead`,
       section: SECTION_ID,
+      classes: 'is-clickable',
       title: `Отметить все как прочитанные`,
       action:  this.markAllAsRead.bind(this)
     };
   }
 
   markAllAsRead(){
-    this.app.getWSClient();
+    this.interface({}).$markAllAsRead()
+      .then(()=>{
+        this.update();
+      })
+      .catch((e) => {
+        this.app.error(e);
+      });
   }
 
   declOfNum(n, text_forms) {

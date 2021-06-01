@@ -86,7 +86,7 @@ exports.thisStatics = {
 	},
 	async markAsRead(_id, owner, ownerModel){
 		try{
-			await this.update({_id, owner, ownerModel}, {new: false});
+			await this.update({_id, owner, ownerModel, new: true}, {new: false});
 		}catch(e){
 			log.error(e);
 			notNode.Application.report(new notError('notification.markAsRead', {owner, ownerModel}, e));
@@ -94,7 +94,7 @@ exports.thisStatics = {
 	},
 	async markAllAsRead(owner, ownerModel){
 		try{
-			await this.update({owner, ownerModel}, { new: false });
+			await this.update({owner, ownerModel, new: true}, { new: false }, true);
 		}catch(e){
 			log.error(e);
 			notNode.Application.report(new notError('notification.markAllAsRead', {owner, ownerModel}, e));
