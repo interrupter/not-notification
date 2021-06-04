@@ -142,7 +142,7 @@ class ncNotification extends ncCRUD {
 				if (res.status === 'ok') {
 					let title = this.getItemTitle(res.result);
 					this.setBreadcrumbs([{
-						title: say(`not-notification:actionDetailsOf`, {title}),
+						title: say(`not-notification:detailsOf`, {title}),
 						url: this.getModelActionURL(params[0], false)
 					}]);
 					this.ui.details = new UINotification({
