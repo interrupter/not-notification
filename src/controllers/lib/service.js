@@ -1,5 +1,6 @@
 import {
-  TopMenu
+  TopMenu,
+  say
 } from 'not-bulma';
 
 const INTERVAL = 360;
@@ -77,7 +78,7 @@ class nsNotification {
       break: true,
       id: `${SECTION_ID}.all`,
       section: SECTION_ID,
-      title: `Показать все (${count})`,
+      title: say(`not-notification:showAll`, {count}),
       url: '/notification/inbox'
     };
   }
@@ -88,7 +89,7 @@ class nsNotification {
       id: `${SECTION_ID}.markAllAsRead`,
       section: SECTION_ID,
       classes: 'is-clickable',
-      title: `Отметить все как прочитанные`,
+      title: `not-notification:markAllAsRead`,
       action:  this.markAllAsRead.bind(this)
     };
   }
@@ -120,16 +121,37 @@ class nsNotification {
     let sec = Math.round((currentTime - date) / 1000);
     let unit;
     if (sec < 60) {
-      unit = this.declOfNum(sec, ['секунду', 'секунды', 'секунд']);
-      return `${sec} ${unit} назад`;
+      unit = this.declOfNum(
+        sec,
+        [
+          'not-notification:second-1',
+          'not-notification:second-2',
+          'not-notification:second-3'
+        ]
+      );
+      return say('not-notification:timeAgo', {time: sec, unit});
     } else if (sec < 3600) {
       let min = Math.floor(sec / 60);
-      unit = this.declOfNum(min, ['минуту', 'минуты', 'минут']);
-      return `${min} ${unit} назад`;
+      unit = this.declOfNum(
+        min,
+        [
+        'not-notification:minute-1',
+        'not-notification:minute-2',
+        'not-notification:minute-3'
+        ]
+      );
+      return say('not-notification:timeAgo', {time: min, unit});
     } else {
       let hours = Math.floor(sec / (60 * 60));
-      unit = this.declOfNum(hours, ['час', 'часа', 'часов']);
-      return `${hours} ${unit} назад`;
+      unit = this.declOfNum(
+        hours,
+        [
+          'not-notification:hour-1',
+          'not-notification:hour-2',
+          'not-notification:hour-3'
+        ]
+      );
+      return say('not-notification:timeAgo', {time: hours, unit});
     }
   }
 

@@ -1,6 +1,6 @@
 {
 	"name": "not-notification",
-	"version": "0.0.19",
+	"version": "0.0.21",
 	"description": "not-* family notification management mod",
 	"main": "index.js",
 	"scripts": {
@@ -22,9 +22,9 @@
 	"author": "interrupter <alex.repin@mail.ru> (http://github.com/interrupter)",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/interrupter/not-key/issues"
+		"url": "https://github.com/interrupter/not-notification/issues"
 	},
-	"homepage": "https://github.com/interrupter/not-key#readme",
+	"homepage": "https://github.com/interrupter/not-notification#readme",
 	"dependencies": {
 		"bulma-toast": "^2.3.1",
 		"mongoose": "*",

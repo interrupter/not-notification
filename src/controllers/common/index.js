@@ -43,7 +43,7 @@ const manifest = {
 			items: [{
 				id: 			'account.notification',
 				section: 	'account',
-				title: 		'Уведомления',
+				title: 		'not-notification:labelPlural',
 				url: 			'/notification'
 			}]
 		}

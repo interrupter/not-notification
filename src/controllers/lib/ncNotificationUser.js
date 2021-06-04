@@ -1,5 +1,6 @@
 import {
-	Table, ncCRUD
+	Table, ncCRUD,
+	say
 } from 'not-bulma';
 import UINotification from './notification.svelte';
 
@@ -8,8 +9,8 @@ const MODULE_NAME = '';
 const MODEL_NAME = 'notification';
 
 const LABELS = {
-	plural: 'Уведомления',
-	single: 'Уведомление',
+	plural: say('not-notification:labelPlural'),
+	single: say('not-notification:labelSingle'),
 };
 
 class ncNotification extends ncCRUD {
@@ -38,12 +39,12 @@ class ncNotification extends ncCRUD {
 			idField: '_id',
 			fields: [{
 				path: ':title',
-				title: 'Название',
+				title: 'not-notification:fieldTitle',
 				searchable: true,
 				sortable: true
 			}, {
 				path: ':text',
-				title: 'Текст',
+				title: 'not-notification:fieldText',
 				searchable: true,
 				sortable: true,
 				preprocessor(val){
@@ -51,7 +52,7 @@ class ncNotification extends ncCRUD {
 				}
 			}, {
 				path: ':createdAt',
-				title: 'Создано',
+				title: 'not-notification:fieldCreatedAt',
 				sortable: true,
 				searchable: true,
 				preprocessor: (value)=>{
@@ -59,26 +60,26 @@ class ncNotification extends ncCRUD {
 				}
 			},{
 				path: ':new',
-				title: 'Новый',
+				title: 'not-notification:fieldNew',
 				type: 'boolean',
 				sortable: true,
 				searchable: true,
 				preprocessor(value){return [{value}];}
 			}, {
 				path: ':_id',
-				title: 'Действия',
+				title: 'not-notification:fieldAction',
 				type: 'button',
 				preprocessor: (value) => {
 					return [
 						{
 							action: this.goDetails.bind(this, value),
-							title: 'Подробнее',
+							title: 'not-notification:actionDetails',
 							size: 'small'
 						},
 						{
 							action: this.goDelete.bind(this, value),
 							color: 'danger',
-							title: 'Удалить',
+							title: 'not-notification:actionDelete',
 							size: 'small',
 							style: 'outlined'
 						}
@@ -127,7 +128,7 @@ class ncNotification extends ncCRUD {
 	async runDetails(params) {
 		await this.preloadVariants('details');
 		this.setBreadcrumbs([{
-			title: 'Просмотр',
+			title: 'not-notification:actionDetails',
 			url: this.getModelActionURL(params[0], false)
 		}]);
 
@@ -141,7 +142,7 @@ class ncNotification extends ncCRUD {
 				if (res.status === 'ok') {
 					let title = this.getItemTitle(res.result);
 					this.setBreadcrumbs([{
-						title: `Просмотр "${title}"`,
+						title: say(`not-notification:actionDetailsOf`, {title}),
 						url: this.getModelActionURL(params[0], false)
 					}]);
 					this.ui.details = new UINotification({

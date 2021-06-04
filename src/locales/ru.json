@@ -1,0 +1,35 @@
+{
+  "labelPlural": "Уведомления",
+  "labelSingle": "Уведомление",
+
+  "showAll": "Показать все ({:count})",
+  "markAllAsRead": "Отметить все как прочитанные",
+
+  "second-1": "секунду",
+  "second-2": "секунды",
+  "second-3": "секунд",
+
+  "minute-1": "минуту",
+  "minute-2": "минуты",
+  "minute-3": "минут",
+
+  "hour-1": "час",
+  "hour-2": "часа",
+  "hour-3": "часов",
+
+  "timeAgo": "{:time} {:unit} назад",
+
+  "fieldTitle": "Название",
+  "fieldText": "Текст",
+  "placeholderText": "текст сообщения",
+  "fieldCreatedAt": "Создано",
+  "fieldOwner": "Владелец",
+  "fieldNew": "Новый",
+  "fieldAction": "Действия",
+  "actionDetails": "Детали",
+  "actionDelete": "Удалить",
+
+  "detailsOf":"Просмотр \"{:title}\"",
+
+  "list": "Список"
+}

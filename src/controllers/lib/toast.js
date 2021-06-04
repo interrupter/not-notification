@@ -1,4 +1,7 @@
 import {toast} from 'bulma-toast/dist/bulma-toast.esm.js';
+import {
+  say
+} from 'not-bulma';
 
 function show(data){
 	toast({
@@ -19,11 +22,13 @@ class nsToast {
 	success(message){
 		this.custom({
 			type: 'is-success',
-			message: `${message}`
+			message: say(message)
 		});
 	}
 
 	error(title, message){
+		title = say(title);
+		message = say(message);
 		this.custom({
 			type: 'is-danger',
 			message: `${title}: ${message}`

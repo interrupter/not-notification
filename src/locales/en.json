@@ -1,0 +1,35 @@
+{
+  "labelPlural": "Notifications",
+  "labelSingle": "Notification",
+
+  "showAll": "Show all ({:count})",
+  "markAllAsRead": "Mark all as read",
+
+  "second-1": "second",
+  "second-2": "seconds",
+  "second-3": "seconds",
+
+  "minute-1": "minute",
+  "minute-2": "minutes",
+  "minute-3": "minutes",
+
+  "hour-1": "hour",
+  "hour-2": "hours",
+  "hour-3": "hours",
+
+  "timeAgo": "{:time} {:unit} ago",
+
+  "fieldTitle": "Title",
+  "fieldText": "Text",
+  "placeholderText": "text of message",
+  "fieldCreatedAt": "Created At",
+  "fieldOwner": "Owner",
+  "fieldNew": "New",
+  "fieldAction": "Actions",
+  "actionDetails": "Details",
+  "actionDelete": "Delete",
+
+  "detailsOf":"Details \"{:title}\"",
+
+  "list": "List"
+}

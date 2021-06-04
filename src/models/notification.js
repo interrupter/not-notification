@@ -10,8 +10,8 @@ const FIELDS = [
 		'text',
 		{
 			default: '',
-			placeholder: 'Сообщение',
-			label: 'Сообщение'
+			placeholder: 'not-notification:placeholderText',
+			label: 'not-notification:fieldText'
 		},
 		'description'
 	],
@@ -21,7 +21,7 @@ const FIELDS = [
 	[
 		'new',
 		{
-			label: 'Новое',
+			label: 'not-notification:fieldNew',
 			searchable: true,
 			sortable: true,
 			default: true
