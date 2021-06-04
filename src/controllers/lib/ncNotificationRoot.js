@@ -52,7 +52,7 @@ class ncNotification extends ncCRUD {
 				}
 			}, {
 				path: ':owner',
-				title: 'not-notification:fieldOwners',
+				title: 'not-notification:fieldOwner',
 				searchable: true,
 				sortable: true
 			}, {
