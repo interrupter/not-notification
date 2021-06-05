@@ -39,7 +39,6 @@ try {
 			},
 			markAllAsRead:{
 				ws: true,
-				postFix: ':actionName',
 				data: 		['record'],
 				rules: [{
 					auth: true

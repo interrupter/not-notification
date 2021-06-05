@@ -9,8 +9,8 @@ const MODULE_NAME = '';
 const MODEL_NAME = 'notification';
 
 const LABELS = {
-	plural: say('not-notification:labelPlural'),
-	single: say('not-notification:labelSingle'),
+	plural: 'not-notification:labelPlural',
+	single: 'not-notification:labelSingle',
 };
 
 class ncNotification extends ncCRUD {
