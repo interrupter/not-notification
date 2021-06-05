@@ -129,7 +129,7 @@ class nsNotification {
           'not-notification:second-3'
         ]
       );
-      return say('not-notification:timeAgo', {time: sec, unit});
+      return say('not-notification:timeAgo', {time: sec, unit: say(unit)});
     } else if (sec < 3600) {
       let min = Math.floor(sec / 60);
       unit = this.declOfNum(
@@ -140,7 +140,7 @@ class nsNotification {
         'not-notification:minute-3'
         ]
       );
-      return say('not-notification:timeAgo', {time: min, unit});
+      return say('not-notification:timeAgo', {time: min, unit: say(unit)});
     } else {
       let hours = Math.floor(sec / (60 * 60));
       unit = this.declOfNum(
@@ -151,7 +151,7 @@ class nsNotification {
           'not-notification:hour-3'
         ]
       );
-      return say('not-notification:timeAgo', {time: hours, unit});
+      return say('not-notification:timeAgo', {time: hours, unit: say(unit)});
     }
   }
 
