@@ -8,7 +8,7 @@ const SECTION_ID = 'notification';
 const SHORT_LIST_SIZE = 5;
 const INIT_UPDATE_DELAY = 5;
 
-const MAX_TITLE_LENGTH = 20;
+const MAX_TITLE_LENGTH = 50;
 
 class nsNotification {
   INTERVAL;
