@@ -69,7 +69,7 @@ class nsNotification {
     let time = this.getTimeDiff(item);
     let title = item.title;
     if(title.length > MAX_TITLE_LENGTH){
-      title = titel.substr(0, MAX_TITLE_LENGTH);
+      title = title.substr(0, MAX_TITLE_LENGTH);
       title+='...';
     }
     return {
