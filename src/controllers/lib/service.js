@@ -8,6 +8,8 @@ const SECTION_ID = 'notification';
 const SHORT_LIST_SIZE = 5;
 const INIT_UPDATE_DELAY = 5;
 
+const MAX_TITLE_LENGTH = 20;
+
 class nsNotification {
   INTERVAL;
   SHORT_LIST_SIZE;
@@ -65,10 +67,15 @@ class nsNotification {
 
   createMenuItem(item) {
     let time = this.getTimeDiff(item);
+    let title = item.title;
+    if(title.length > MAX_TITLE_LENGTH){
+      title = titel.substr(0, MAX_TITLE_LENGTH);
+      title+='...';
+    }
     return {
       id: `${SECTION_ID}.${item._id}`,
       section: SECTION_ID,
-      title: `${item.title} - ${time}`,
+      title: `${title} - ${time}`,
       url: `/notification/${item._id}`
     };
   }
