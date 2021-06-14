@@ -41,15 +41,14 @@ class ncNotification extends ncCRUD {
 				path: ':title',
 				title: 'not-notification:fieldTitle',
 				searchable: true,
+				maxLength: 50,
 				sortable: true
 			}, {
 				path: ':text',
 				title: 'not-notification:fieldText',
 				searchable: true,
 				sortable: true,
-				preprocessor(val){
-					return val.slice(0, 100);
-				}
+				maxLength: 50
 			}, {
 				path: ':createdAt',
 				title: 'not-notification:fieldCreatedAt',
