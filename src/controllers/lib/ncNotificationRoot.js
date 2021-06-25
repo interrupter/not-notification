@@ -149,6 +149,7 @@ class ncNotification extends ncCRUD {
 			fields: [{
 				path: ':title',
 				title: 'not-notification:fieldTitle',
+				maxLength: 100,
 				searchable: true,
 				sortable: true
 			}, {
@@ -156,9 +157,7 @@ class ncNotification extends ncCRUD {
 				title: 'not-notification:fieldText',
 				searchable: true,
 				sortable: true,
-				preprocessor:(val)=>{
-					return val.slice(0, 100);
-				}
+				maxLength: 100
 			}, {
 				path: ':createdAt',
 				title: 'not-notification:fieldCreatedAt',
