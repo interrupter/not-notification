@@ -1,8 +1,7 @@
-import ncNotification from '../lib/ncNotificationRoot.js';
-import nsNotification from '../lib/service.js';
-import nsToast from '../lib/toast.js';
+import ncNotification from './ncNotificationUser.js';
+import nsNotification from './service.js';
+import nsToast from './toast.js';
 import main from './ws.client.main.js';
-
 
 const services = { nsNotification, nsToast };
 
