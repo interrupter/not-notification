@@ -1,13 +1,13 @@
 const Log = require('not-log')(module, 'notification:route');
 
 try {
-	const initFromSchema = require('not-node').Fields.fromSchema;
-	const modelSchema = require('../models/notification').thisSchema;
-	const FIELDS = initFromSchema(modelSchema,
+	const FIELDS =
 		[
 			['_id', {}, '_id'],
-		]
-	);
+			['link', 'not-node//title'],
+			['text', 'not-node//title'],
+			['new', 'not-node//active']
+		];
 
 	module.exports = {
 		model: 'notification',

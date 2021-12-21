@@ -1,7 +1,6 @@
 const notNode = require('not-node');
 const log = require('not-log')(module, 'notification:model');
 const {notError} = require('not-error');
-const initFields = require('not-node').Fields.initFields;
 
 const MODEL_NAME = 'Notification';
 const FIELDS = [
@@ -37,7 +36,7 @@ exports.enrich = {
 };
 
 exports.thisModelName = MODEL_NAME;
-exports.thisSchema = initFields(FIELDS, 'model');
+exports.FIELDS = FIELDS;
 
 exports.thisMethods = {
 	async markAsRead(){
