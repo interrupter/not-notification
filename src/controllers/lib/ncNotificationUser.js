@@ -1,9 +1,10 @@
 import {
-	Table, ncCRUD,
-	say
+	Frame,
+	Elements
 } from 'not-bulma';
-import UINotification from './notification.svelte';
 
+const notCRUD = Frame.notCRUD;
+const UICommon = Elements.UICommon;
 
 const MODULE_NAME = '';
 const MODEL_NAME = 'notification';
@@ -13,10 +14,23 @@ const LABELS = {
 	single: 'not-notification:labelSingle',
 };
 
-class ncNotification extends ncCRUD {
+import NotificationActionInbox from './actions/inbox.js';
+import NotificationActionDetails from './actions/details.js';
+
+const ACTIONS = {
+  list: NotificationActionInbox,
+	inbox: NotificationActionInbox,
+  details: NotificationActionDetails
+};
+
+import NotificationRouter from './router.js';
+
+class ncNotification extends notCRUD {
+
 	static MODULE_NAME = MODULE_NAME;
 	static MODEL_NAME = MODEL_NAME;
-	constructor(app, params) {
+
+	constructor(app, params, { actions: ACTIONS, router: NotificationRouter}) {
 		super(app, `${MODULE_NAME}.${MODEL_NAME}`);
 		this.setModuleName(MODULE_NAME.toLowerCase());
 		this.setModelName(MODEL_NAME.toLowerCase());
@@ -90,72 +104,12 @@ class ncNotification extends ncCRUD {
 		return this;
 	}
 
-	route(params = []) {
-		if (params.length == 1) {
-			if(params[0] === 'inbox'){
-				return this.runInbox();
-			}else {
-				return this.runDetails(params);
-			}
-		} else if (params.length > 1) {
-			if (params[1] === 'delete') {
-				return this.runDelete(params);
-			} else if (params[1] === 'update') {
-				return this.runUpdate(params);
-			} else {
-				let routeRunnerName = 'run' + notCommon.capitalizeFirstLetter(params[1]);
-				if (this[routeRunnerName] && typeof this[routeRunnerName] === 'function') {
-					return this[routeRunnerName](params);
-				}
-			}
-		}
-		return this.runInbox(params);
-	}
-
-	runInbox(){
-
-	}
-
 	goInbox() {
 		this.app.getWorking('router').navigate(this.getModelActionURL(false, 'inbox'));
 	}
 
 	goMarkAsRead(value) {
 		this.app.getWorking('router').navigate(this.getModelActionURL(value, 'markAsRead'));
-	}
-
-	async runDetails(params) {
-		await this.preloadVariants('details');
-		this.setBreadcrumbs([{
-			title: 'not-notification:actionDetails',
-			url: this.getModelActionURL(params[0], false)
-		}]);
-
-		if (this.ui.details) {
-			return;
-		} else {
-			this.$destroyUI();
-		}
-		this.getModel({_id: params[0]}).$get()
-			.then((res) => {
-				if (res.status === 'ok') {
-					let title = this.getItemTitle(res.result);
-					this.setBreadcrumbs([{
-						title: say(`not-notification:detailsOf`, {title}),
-						url: this.getModelActionURL(params[0], false)
-					}]);
-					this.ui.details = new UINotification({
-						target: this.els.main,
-						props: res.result
-					});
-					this.updateNotifications();
-					this.emit('after:render:details');
-					this.ui.details.$on('reject', this.goList.bind(this));
-				} else {
-					this.showErrorMessage(res);
-				}
-			})
-			.catch(this.error.bind(this));
 	}
 
 	updateNotifications(){

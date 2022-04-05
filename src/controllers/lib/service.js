@@ -1,7 +1,9 @@
 import {
-  TopMenu,
+  Frame,
   say
 } from 'not-bulma';
+
+const {notTopMenu} = Frame;
 
 const INTERVAL = 360;
 const SECTION_ID = 'notification';
@@ -46,7 +48,7 @@ class nsNotification {
           this.app.log(res.result);
           if (res.result) {
             let menuItems = this.createMenuItems(res.result);
-            TopMenu.updateSectionItems('notification', () => {
+            notTopMenu.updateSectionItems('notification', () => {
               return menuItems;
             });
             setTimeout(()=>{

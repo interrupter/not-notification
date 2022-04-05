@@ -1,4 +1,5 @@
-import {notCommon} from 'not-bulma';
+import {Frame} from 'not-bulma';
+const {notCommon} = Frame;
 
 async function onUpdate(/*payload*/){
 	try{
