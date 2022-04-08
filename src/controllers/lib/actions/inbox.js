@@ -110,7 +110,7 @@ export default class NotificationActionInbox {
 		};
 		const TABLE_OPTIONS = {
 			options: {
-				targetEl: controller.controller.getContainerInnerElement(),
+				targetEl: controller.getContainerInnerElement(),
 				...DEFAULT_OPTIONS_TABLE
 			}
 		};
