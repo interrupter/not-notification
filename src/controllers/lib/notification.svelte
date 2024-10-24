@@ -6,10 +6,21 @@
     UIBlock = Elements.Blocks.UIBlock,
     UICommon = Elements.UICommon;
 
-  export let title ='';
-  export let text ='';
-  export let link ='';
-  export let createdAt = 0;
+  /**
+   * @typedef {Object} Props
+   * @property {string} [title]
+   * @property {string} [text]
+   * @property {string} [link]
+   * @property {number} [createdAt]
+   */
+
+  /** @type {Props} */
+  let {
+    title = '',
+    text = '',
+    link = '',
+    createdAt = 0
+  } = $props();
   
 </script>
 

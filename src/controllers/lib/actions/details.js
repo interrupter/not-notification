@@ -1,5 +1,6 @@
 
 import UINotification from '../notification.svelte';
+import { mount } from "svelte";
 
 const ACTION = 'details';
 const MODEL_ACTION = 'get';
@@ -36,10 +37,10 @@ export default class NotificationActionDetails {
 				url: controller.getModelActionURL(params[0], false)
 			}]);
 
-			controller.ui[ACTION] = new UINotification({
-				target: controller.getContainerInnerElement(),
-				props: res.result
-			});
+			controller.ui[ACTION] = mount(UINotification, {
+            				target: controller.getContainerInnerElement(),
+            				props: res.result
+            			});
 
 			controller.updateNotifications();
 
