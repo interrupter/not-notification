@@ -20,7 +20,7 @@ const manifest = {
 			sections:[
 				{
 					id: 'notification',
-					url: '/notification',
+					href: '/notification',
 					icon: {
 						font: 'envelope',
 						size: 'medium',
@@ -41,9 +41,9 @@ const manifest = {
 		side: {
 			items: [{
 				id: 			'account.notification',
-				section: 	'account',
-				title: 		'not-notification:labelPlural',
-				url: 			'/notification'
+				section: 		'account',
+				title: 			'not-notification:labelPlural',
+				href: 			'/notification'
 			}]
 		}
 	}

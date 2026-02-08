@@ -13,7 +13,7 @@ export default class NotificationActionInbox {
             controller.setBreadcrumbs([
                 {
                     title: "not-notification:list",
-                    url: controller.getModelURL(),
+                    href: controller.getModelURL(),
                 },
             ]);
 
