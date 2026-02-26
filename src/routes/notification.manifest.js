@@ -45,6 +45,7 @@ try {
 				}]
 			},
 			inbox: {
+				ws: true,
 				method: 'GET',
 				isArray: false,
 				postFix: '/:actionName',

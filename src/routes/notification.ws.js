@@ -1,4 +1,5 @@
 const notNode = require('not-node');
+const {HttpExceptionUnauthorized} = require('not-node/src/exceptions/http');
 
 async function inbox({data, client}){
 	if(client.identity && client.identity._id){
@@ -10,7 +11,7 @@ async function inbox({data, client}){
 		});
 		return result;
 	}else{
-		return { status: 'ok', result: {list:[]} };
+		throw new HttpExceptionUnauthorized();
 	}
 }
 
@@ -23,7 +24,7 @@ async function markAsRead({data, client}){
 		});
 		return result;
 	}else{
-		return { status: 'error'};
+		throw new HttpExceptionUnauthorized();
 	}
 }
 
@@ -35,7 +36,7 @@ async function markAllAsRead({client}){
 		});
 		return result;
 	}else{
-		return { status: 'error'};
+		throw new HttpExceptionUnauthorized();
 	}
 }
 

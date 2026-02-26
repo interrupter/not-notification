@@ -26,28 +26,21 @@ class NotificationLogic {
 				owner,
 				ownerModel
 			);
-			return {
-				status: 'ok',
-				result
-			};
+			return result;
 		}catch(err){
 			module.log.error(err);
-			notNode.Application.report(
-				new notError(
-					`notification:route.notify`, {
-						owner,
-						ownerModel,
-						title,
-						text,
-						link
-					},
-					err
-				)
+			const notErr = new notError(
+				`notification:route.notify`, {
+					owner,
+					ownerModel,
+					title,
+					text,
+					link
+				},
+				err
 			);
-			return {
-				status: 'error',
-				error:  err.message
-			};
+			notNode.Application.report(notErr);
+			throw notErr;
 		}
 	}
 
@@ -63,27 +56,21 @@ class NotificationLogic {
 			let result = await Notification.inbox(skip, size, filter, owner, ownerModel);
 			let freshCount = await Notification.countNew(owner, ownerModel);
 			result.freshCount = freshCount;
-			return {
-				status: 'ok',
-				result: result
-			};
+			return result;
 		} catch (err) {
 			module.log.error(err);
-			notNode.Application.report(
-				new notError(
-					`notification:route.inbox`, {
-						owner,
-						ownerModel,
-						size,
-						skip,
-						filter
-					},
-					err
-				)
+			const notErr = new notError(
+				`notification:route.inbox`, {
+					owner,
+					ownerModel,
+					size,
+					skip,
+					filter
+				},
+				err
 			);
-			return {
-				status: 'error'
-			};
+			notNode.Application.report(notErr);
+			throw notErr;
 		}
 	}
 
@@ -95,25 +82,19 @@ class NotificationLogic {
 		try {
 			const Notification = notNode.Application.getModel(MODEL_NAME);
 			let result = await Notification.markAllAsRead(_id, owner, ownerModel);
-			return {
-				status: 'ok',
-				result
-			};
+			return result;
 		} catch (err) {
 			Log.error(err);
-			notNode.Application.report(
-				new notError(
-					`notification:route.markAllAsRead`, {
-						_id,
-						owner,
-						ownerModel
-					},
-					err
-				)
+			const notErr = new notError(
+				`notification:route.markAllAsRead`, {
+					_id,
+					owner,
+					ownerModel
+				},
+				err
 			);
-			return {
-				status: 'error'
-			};
+			notNode.Application.report(notErr);
+			throw notErr;
 		}
 	}
 
@@ -124,24 +105,18 @@ class NotificationLogic {
 		try {
 			const Notification = notNode.Application.getModel(MODEL_NAME);
 			let result = await Notification.markAllAsRead(owner, ownerModel);
-			return {
-				status: 'ok',
-				result
-			};
+			return result;
 		} catch (err) {
 			Log.error(err);
-			notNode.Application.report(
-				new notError(
-					`notification:route.markAllAsRead`, {
-						owner,
-						ownerModel
-					},
-					err
-				)
+			const notErr = new notError(
+				`notification:route.markAllAsRead`, {
+					owner,
+					ownerModel
+				},
+				err
 			);
-			return {
-				status: 'error'
-			};
+			notNode.Application.report(notErr);
+			throw notErr;
 		}
 	}
 }
